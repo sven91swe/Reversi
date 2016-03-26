@@ -4,7 +4,7 @@ package gameBot;
  * Created by Sven Eriksson on 2016-03-25.
  */
 abstract public class GameBot {
-    private boolean isRunning = false;
+    protected boolean isRunning = false;
     private int[] nextMove = null;
     private int version = 0;
     private String name = "Unknown";
