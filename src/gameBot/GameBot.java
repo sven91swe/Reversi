@@ -5,7 +5,7 @@ package gameBot;
  */
 abstract public class GameBot {
     protected boolean isRunning = false;
-    private int[] nextMove = null;
+    private NextMove nextMove = null;
     private int version = 0;
     private String name = "Unknown";
     private String creator = "Unknown";
@@ -20,7 +20,7 @@ abstract public class GameBot {
      *
      * @param board 10x10 2d array. Outer edges are -1, empty areas are 0, 1 and 2 represent game pieces
      */
-    public abstract void calculateNextMove(int[][] board, int colour);
+    public abstract void calculateNextMove(Board board, int colour);
 
     /**
      *
@@ -28,11 +28,13 @@ abstract public class GameBot {
      * null means pass
      * Otherwise an array with two integers in the range [1,8] is expected. This will indicate the move that you will do.
      */
-    protected void setNextMove(int[] nextMove){
+
+
+    protected void setNextMove(NextMove nextMove){
         this.nextMove = nextMove;
     }
 
-    public int[] getNextMove(){
+    public NextMove getNextMove(){
         return this.nextMove;
     }
 
