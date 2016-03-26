@@ -33,6 +33,4 @@ public abstract class GameBotCreator {
         return this.getLastGameBot().getVersion();
     }
 
-
-    //Implementera singleton för detta objekt. Detta är ansvarigt för att förse spelet med ny instanser av dess bot.
 }
