@@ -5,6 +5,7 @@ package gameBot;
  */
 public abstract class GameBotCreator {
     protected GameBot lastGameBot = null;
+    private static GameBotCreator gameBotCreator= null;
 
     private GameBot getLastGameBot(){
         if(this.lastGameBot == null){
@@ -19,7 +20,6 @@ public abstract class GameBotCreator {
     }
 
     protected abstract GameBot createNewGameBot();
-
 
     public String getName(){
         return this.getLastGameBot().getName();

@@ -10,11 +10,15 @@ public class ExampleBot extends GameBot {
         super();
         this.setCreator("ExampleUser");
         this.setName("ExampleBot");
-        this.setVersion(-1);
+        this.setVersion(1);
 
     }
     @Override
     public void calculateNextMove(int[][] board, int colour) {
+        this.isRunning = true;
+        int[] temp = {20,20};
+        this.setNextMove(temp);
 
+        this.isRunning = false;
     }
 }
