@@ -13,7 +13,7 @@ public class Main {
         GameBot g = c.getNewGameBot();
 
         g.calculateNextMove(null, 1);
-        System.out.print(g.getNextMove()[0] + "  " + g.getNextMove()[1] + "\n");
+        System.out.print(g.getNextMove().x + "  " + g.getNextMove().y + "\n");
         System.out.print(c.getCreator() + " - " + c.getName() + " - " + c.getVersion());
 
     }

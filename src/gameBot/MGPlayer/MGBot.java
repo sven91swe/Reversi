@@ -1,4 +1,4 @@
-package gameBot.ExamplePlayer;
+package gameBot.MGPlayer;
 
 import gameBot.Board;
 import gameBot.GameBot;
@@ -7,11 +7,11 @@ import gameBot.NextMove;
 /**
  * Created by Sven Eriksson on 2016-03-25.
  */
-public class ExampleBot extends GameBot {
-    public ExampleBot(){
+public class MGBot extends GameBot {
+    public MGBot(){
         super();
-        this.setCreator("ExampleUser");
-        this.setName("ExampleBot");
+        this.setCreator("MGUser");
+        this.setName("MGBot");
         this.setVersion(1);
 
     }
