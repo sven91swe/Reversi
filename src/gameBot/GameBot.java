@@ -29,7 +29,7 @@ abstract public class GameBot {
      * Otherwise an array with two integers in the range [1,8] is expected. This will indicate the move that you will do.
      */
     protected void setNextMove(int[] nextMove){
-        this.nextMove = nextMove.clone();
+        this.nextMove = nextMove;
     }
 
     public int[] getNextMove(){
