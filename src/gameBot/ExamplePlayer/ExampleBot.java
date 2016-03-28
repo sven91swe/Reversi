@@ -1,8 +1,8 @@
 package gameBot.ExamplePlayer;
 
-import gameBot.Board;
+import Board;
 import gameBot.GameBot;
-import gameBot.NextMove;
+import NextMove;
 
 /**
  * Created by Sven Eriksson on 2016-03-25.
