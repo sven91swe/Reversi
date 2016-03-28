@@ -1,8 +1,8 @@
 package gameBot.MGPlayer;
 
-import Board;
+import Board.Board;
 import gameBot.GameBot;
-import NextMove;
+import Board.NextMove;
 
 /**
  * Created by Sven Eriksson on 2016-03-25.
