@@ -34,5 +34,15 @@ public class Main {
         board.doMove(new NextMove(3,3),1);
         board.printBoard();
 
+        System.out.print(board.allPotentialMoves(2));
+
+        System.out.print("\n" + board.doMove(new NextMove(3,2),1));
+
+
+
+
+
     }
+
+
 }
