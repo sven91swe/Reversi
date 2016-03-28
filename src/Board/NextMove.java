@@ -10,33 +10,21 @@ public class NextMove {
     public NextMove(){
         this(0,0,true);
     }
-
     /**
      * @param pass True. This constructor should only be used when you intend to pass. False will generate IllegalArgumentException.
      */
-    public NextMove(boolean pass) throws IllegalArgumentException{
+    public NextMove(boolean pass){
        this(0,0,pass);
     }
-
     /**
-     *
      * @param x in range [1,8]
      * @param y in range [1,8]
-     * @throws IllegalArgumentException
      */
-    public NextMove(int x, int y) throws IllegalArgumentException{
+    public NextMove(int x, int y){
         this(x,y,false);
     }
-    private NextMove(int x, int y, boolean pass) throws IllegalArgumentException{
+    private NextMove(int x, int y, boolean pass){
         super();
-        if(!pass) {
-            if (x < 1 || x > 8) {
-                throw new IllegalArgumentException("x is out of range [1,8]");
-            }
-            if (y < 1 || y > 8) {
-                throw new IllegalArgumentException("y is out of range [1,8]");
-            }
-        }
         this.x = x;
         this.y = y;
         this.passing = pass;

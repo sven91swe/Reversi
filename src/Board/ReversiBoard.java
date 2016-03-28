@@ -25,7 +25,17 @@ public class ReversiBoard {
      * @return true if move is value, false if not.
      */
     public boolean isValidMove(NextMove move, int color){
+        if(!move.isPassing()) {
+            if (move.getX() < 1 || move.getX() > 8) {
+                return false;
+            }
+            if (move.getY() < 1 || move.getY() > 8) {
+                return false;
+            }
+        }
+
         //TODO: Implement is valid logic. Look at function below, it is enough to implement evaluateMove and check if total>0.
+
         return true;
     }
 
@@ -56,20 +66,17 @@ public class ReversiBoard {
     }
 
     /**
-     *
-     * @param m a non passing move.
+     * @param m a non passing move. x in range [1,8], y in range [1,8]
      * @return 0 for empty, 1 and 2 if the color of the piece at that location.
      */
     public int getPieceInformation(NextMove m){
         if(m.isPassing()){
             throw new IllegalArgumentException("ReversiBoard.getPieceInformation: Can't be a passing move.");
         }
-
         return this.getPieceInformation(m.getX(), m.getY());
     }
 
     /**
-     *
      * @param x in range [1,8]
      * @param y in range [1,8]
      * @return 0 for empty, 1 and 2 if the color of the piece at that location.
