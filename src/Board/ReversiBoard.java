@@ -34,7 +34,7 @@ public class ReversiBoard {
             }
         }
 
-        //TODO: Implement is valid logic. Look at function below, it is enough to implement evaluateMove and check if total>0.
+        //TODO: Implement is valid logic. Look at function below, it is enough to implement evaluateMove and check if total>0. Test
 
         return true;
     }
