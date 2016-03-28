@@ -1,11 +1,14 @@
 package gameBot;
 
+import Board.NextMove;
+import Board.ReversiBoard;
+
 /**
  * Created by Sven Eriksson on 2016-03-25.
  */
 abstract public class GameBot {
     protected boolean isRunning = false;
-    private NextMove nextMove = null;
+    private NextMove nextMove = new NextMove();
     private int version = 0;
     private String name = "Unknown";
     private String creator = "Unknown";
@@ -20,7 +23,7 @@ abstract public class GameBot {
      *
      * @param board 10x10 2d array. Outer edges are -1, empty areas are 0, 1 and 2 represent game pieces
      */
-    public abstract void calculateNextMove(Board board, int colour);
+    public abstract void calculateNextMove(ReversiBoard board, int colour);
 
     /**
      *

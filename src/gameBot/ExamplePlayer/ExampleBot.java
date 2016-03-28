@@ -1,6 +1,6 @@
 package gameBot.ExamplePlayer;
 
-import Board.Board;
+import Board.ReversiBoard;
 import gameBot.GameBot;
 import Board.NextMove;
 
@@ -16,9 +16,9 @@ public class ExampleBot extends GameBot {
 
     }
     @Override
-    public void calculateNextMove(Board board, int colour) {
+    public void calculateNextMove(ReversiBoard reversiBoard, int colour) {
         this.isRunning = true;
-        NextMove temp = null;
+        NextMove temp = new NextMove();
         this.setNextMove(temp);
 
         this.isRunning = false;
