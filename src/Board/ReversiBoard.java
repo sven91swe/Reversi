@@ -164,16 +164,17 @@ public class ReversiBoard {
      */
     public boolean doMove(NextMove move, int color) {
         if (isValidMove(move, color)) {
-            this.boardState[move.getX()][move.getY()] = color;
-            this.doMoveInDirection(move.getX(), move.getY(), -1,-1,color);
-            this.doMoveInDirection(move.getX(), move.getY(), -1,0,color);
-            this.doMoveInDirection(move.getX(), move.getY(), -1,1,color);
-            this.doMoveInDirection(move.getX(), move.getY(), 0,-1,color);
-            this.doMoveInDirection(move.getX(), move.getY(), 0,1,color);
-            this.doMoveInDirection(move.getX(), move.getY(), 1,-1,color);
-            this.doMoveInDirection(move.getX(), move.getY(), 1,0,color);
-            this.doMoveInDirection(move.getX(), move.getY(), 1,1,color);
-
+            if(!move.isPassing()) {
+                this.boardState[move.getX()][move.getY()] = color;
+                this.doMoveInDirection(move.getX(), move.getY(), -1, -1, color);
+                this.doMoveInDirection(move.getX(), move.getY(), -1, 0, color);
+                this.doMoveInDirection(move.getX(), move.getY(), -1, 1, color);
+                this.doMoveInDirection(move.getX(), move.getY(), 0, -1, color);
+                this.doMoveInDirection(move.getX(), move.getY(), 0, 1, color);
+                this.doMoveInDirection(move.getX(), move.getY(), 1, -1, color);
+                this.doMoveInDirection(move.getX(), move.getY(), 1, 0, color);
+                this.doMoveInDirection(move.getX(), move.getY(), 1, 1, color);
+            }
             return true;
         } else {
             return false;
@@ -252,7 +253,7 @@ public class ReversiBoard {
         System.out.println("BoardState:");
         for(int i=1;i<9;i++){
             for(int j=1;j<9;j++){
-                System.out.print(this.boardState[i][j]);
+                System.out.print(this.boardState[i][j] + " ");
             }
             System.out.println("");
         }

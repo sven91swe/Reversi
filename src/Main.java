@@ -1,13 +1,14 @@
 import Board.NextMove;
 import Board.ReversiBoard;
-import gameBot.ExamplePlayer.ExampleBotCreator;
-import gameBot.GameBot;
-import gameBot.GameBotCreator;
+import GameBot.ExamplePlayer.ExampleBot;
+import GameBot.ExamplePlayer.ExampleBotCreator;
+import GameBot.GameBot;
+import GameBot.GameBotCreator;
 
 public class Main {
 
     public static void main(String[] args) {
-        test2();
+        test3();
 
     }
 
@@ -37,10 +38,31 @@ public class Main {
         System.out.print(board.allPotentialMoves(2));
 
         System.out.print("\n" + board.doMove(new NextMove(3,2),1));
+    }
 
+    public static void test3(){
+        GameBot[] bots = new GameBot[2];
+        bots[0] = new ExampleBotCreator().getNewGameBot();
+        bots[1] = new ExampleBotCreator().getNewGameBot();
 
+        ReversiBoard board = new ReversiBoard();
 
-
+        NextMove nextMove;
+        for(int i=0; i<100; i++){
+            for(int j=0; j<2; j++){
+                try {
+                    //thread to sleep for the specified number of milliseconds
+                    Thread.sleep(500);
+                } catch ( java.lang.InterruptedException ie) {
+                    System.out.println(ie);
+                }
+                board.printBoard();
+                bots[j].calculateNextMove(board.copy(), j+1);
+                nextMove = bots[j].getNextMove();
+                System.out.print(nextMove + " \n");
+                board.doMove(nextMove, j+1);
+            }
+        }
 
     }
 
