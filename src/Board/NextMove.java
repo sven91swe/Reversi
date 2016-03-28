@@ -42,9 +42,7 @@ public class NextMove {
         return passing;
     }
 
-    public static ArrayList<NextMove> allPotentialMoves(){
-        //TODO: Return a list of all potential non-passing move. All 64 potential moves.
-        return null;
+    public String toString(){
+        return "x=" + this.x + " - y=" + this.getY() + " - pass=" + this.passing;
     }
-
 }
