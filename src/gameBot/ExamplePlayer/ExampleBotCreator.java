@@ -1,7 +1,7 @@
-package gameBot.ExamplePlayer;
+package GameBot.ExamplePlayer;
 
-import gameBot.GameBot;
-import gameBot.GameBotCreator;
+import GameBot.GameBot;
+import GameBot.GameBotCreator;
 
 /**
  * Created by Sven Eriksson on 2016-03-26.

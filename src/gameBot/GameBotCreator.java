@@ -1,4 +1,4 @@
-package gameBot;
+package GameBot;
 
 /**
  * Created by Sven Eriksson on 2016-03-25.

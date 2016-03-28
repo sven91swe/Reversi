@@ -1,8 +1,10 @@
-package gameBot.ExamplePlayer;
+package GameBot.ExamplePlayer;
 
 import Board.ReversiBoard;
-import gameBot.GameBot;
+import GameBot.GameBot;
 import Board.NextMove;
+
+import java.util.ArrayList;
 
 /**
  * Created by Sven Eriksson on 2016-03-25.
@@ -16,10 +18,16 @@ public class ExampleBot extends GameBot {
 
     }
     @Override
-    public void calculateNextMove(ReversiBoard reversiBoard, int colour) {
+    public void calculateNextMove(ReversiBoard reversiBoard, int color) {
         this.isRunning = true;
-        NextMove temp = new NextMove();
-        this.setNextMove(temp);
+        ArrayList<NextMove> list = reversiBoard.allPotentialMoves(color);
+        NextMove nextMove = null;
+        if(list.size() != 0) {
+            nextMove = list.get(0);
+        }else{
+            nextMove = new NextMove(true);
+        }
+        this.setNextMove(nextMove);
 
         this.isRunning = false;
     }

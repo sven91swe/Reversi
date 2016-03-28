@@ -1,7 +1,7 @@
-package gameBot.MGPlayer;
+package GameBot.MGPlayer;
 
 import Board.ReversiBoard;
-import gameBot.GameBot;
+import GameBot.GameBot;
 import Board.NextMove;
 
 /**

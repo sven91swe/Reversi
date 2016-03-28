@@ -1,4 +1,4 @@
-package gameBot;
+package GameBot;
 
 import Board.NextMove;
 import Board.ReversiBoard;
@@ -23,7 +23,7 @@ abstract public class GameBot {
      *
      * @param board 10x10 2d array. Outer edges are -1, empty areas are 0, 1 and 2 represent game pieces
      */
-    public abstract void calculateNextMove(ReversiBoard board, int colour);
+    public abstract void calculateNextMove(ReversiBoard board, int color);
 
     /**
      *

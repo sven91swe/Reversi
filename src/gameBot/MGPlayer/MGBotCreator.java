@@ -1,7 +1,7 @@
-package gameBot.MGPlayer;
+package GameBot.MGPlayer;
 
-import gameBot.GameBot;
-import gameBot.GameBotCreator;
+import GameBot.GameBot;
+import GameBot.GameBotCreator;
 
 /**
  * Created by Sven Eriksson on 2016-03-26.
