@@ -51,7 +51,13 @@ public class Main {
         ReversiBoard board = new ReversiBoard();
 
         NextMove nextMove;
-        for(int i = 0; i<30; i++){
+        /* By only doing 60 iterations the game could be stopped when there are still valid moves to be made. 
+        *  This is due to the fact that passing might be a valid move during the game. 
+        *  But that player might be able to do a valid move later on during the game.
+        *  TODO: Implemt dual pass check and break loop. Loop over a larger number (60)
+        */ 
+        
+        for(int i = 0; i<60; i++){
             for(int j = 0; j<2; j++){
                 try {
                     //thread to sleep for the specified number of milliseconds
