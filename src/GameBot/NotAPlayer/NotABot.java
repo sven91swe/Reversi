@@ -20,14 +20,27 @@ public class NotABot extends GameBot {
     @Override
     public void calculateNextMove(ReversiBoard reversiBoard, int color) {
         this.isRunning = true;
+
         ArrayList<NextMove> list = reversiBoard.allPotentialMoves(color);
-        NextMove nextMove = null;
+
+        NextMove testMove = null;
+        int testResult;
+        int bestResult = -1;
         if(list.size() != 0) {
-            nextMove = list.get(0);
+            int choice = 0;
+            for(int i = 0;i < list.size();i++) {
+                testMove = list.get(i);
+                testResult = reversiBoard.evaluateMove(testMove, color).get("total");
+                if(testResult>bestResult) {
+                    bestResult = testResult;
+                    choice = i;
+                }
+            }
+            testMove = list.get(choice);
         }else{
-            nextMove = new NextMove(true);
+            testMove = new NextMove(true);
         }
-        this.setNextMove(nextMove);
+        this.setNextMove(testMove);
 
         this.isRunning = false;
     }
