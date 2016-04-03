@@ -1,5 +1,6 @@
 import Board.NextMove;
 import Board.ReversiBoard;
+import GameBot.NotAPlayer.NotABot;
 import GameBot.ExamplePlayer.ExampleBot;
 import GameBot.ExamplePlayer.ExampleBotCreator;
 import GameBot.GameBot;
