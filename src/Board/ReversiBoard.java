@@ -251,8 +251,8 @@ public class ReversiBoard {
 
     public void printBoard(){
         System.out.println("BoardState:");
-        for(int i=1;i<9;i++){
-            for(int j=1;j<9;j++){
+        for(int j=1;j<9;j++){
+            for(int i=1;i<9;i++){
                 System.out.print(this.boardState[i][j] + " ");
             }
             System.out.println("");

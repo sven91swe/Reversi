@@ -43,6 +43,6 @@ public class NextMove {
     }
 
     public String toString(){
-        return "x=" + this.x + " - y=" + this.getY() + " - pass=" + this.passing;
+        return "x=" + this.x + ", y=" + this.getY() + ", pass=" + this.passing;
     }
 }

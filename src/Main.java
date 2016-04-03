@@ -1,5 +1,7 @@
 import Board.NextMove;
 import Board.ReversiBoard;
+import GameBot.NotAPlayer.NotABot;
+import GameBot.NotAPlayer.NotABotCreator;
 import GameBot.ExamplePlayer.ExampleBot;
 import GameBot.ExamplePlayer.ExampleBotCreator;
 import GameBot.GameBot;
@@ -48,21 +50,28 @@ public class Main {
         ReversiBoard board = new ReversiBoard();
 
         NextMove nextMove;
-        for(int i=0; i<100; i++){
-            for(int j=0; j<2; j++){
+        for(int i = 0; i<30; i++){
+            for(int j = 0; j<2; j++){
                 try {
                     //thread to sleep for the specified number of milliseconds
                     Thread.sleep(500);
                 } catch ( java.lang.InterruptedException ie) {
                     System.out.println(ie);
                 }
+                System.out.print("Iteration: " + (2*i+j) + " \n");
                 board.printBoard();
                 bots[j].calculateNextMove(board.copy(), j+1);
                 nextMove = bots[j].getNextMove();
                 System.out.print(nextMove + " \n");
                 board.doMove(nextMove, j+1);
+
+                if((2*i+j) == 59){
+                    System.out.print("Iteration: " + 60 + " \n");
+                    board.printBoard();
+                }
             }
         }
+
 
     }
 
