@@ -8,11 +8,12 @@ import GameBot.GameBot;
  * Created by Joel Magnusson on 2016-04-03.
  */
 public class Game {
-    private int winner;
-    private boolean isFinished = false;
-    private int iteration = 0;
     private ReversiBoard board = new ReversiBoard();
     private GameBot[] bots = new GameBot[2];
+    private NextMove latestMove = new NextMove(false);
+    private int turn = 0;
+    private boolean isFinished = false;
+    private int winner;
 
     public Game(GameBot bot){ this(bot,bot); }
 
@@ -23,45 +24,58 @@ public class Game {
 
     public GameBot[] getBots() {return this.bots;}
 
-    private int getIteration() {return this.iteration;}
-    private void increaseIteration() {this.iteration += 1;}
+    public NextMove getLatestMove() {return this.latestMove;}
+    private void setLatestMove(NextMove latestMove){this.latestMove = latestMove;}
 
+    private int getTurn() {return this.turn;}
+    private void nextTurn() {this.turn += 1;}
+
+    /**
+     * TODO: Make calculateWinner actually calculate the winner.
+     */
     private void calculateWinner(){}
 
     public int getWinner() {
         if(this.isFinished){
             return this.winner;
         }
+        /**
+         * TODO: Make it return an error.
+         */
         return -1;
     }
 
     public boolean isFinished() {return this.isFinished;}
-    private void setIsFinished() {this.isFinished = true;}
-
-    private void oneIteration(int color) {
-        System.out.print("Iteration: " + this.getIteration() + " \n");
-        this.board.printBoard();
-        this.bots[color-1].calculateNextMove(this.board.copy(), color);
-        System.out.print(this.bots[color-1].getNextMove() + " \n");
-        this.board.doMove(this.bots[color-1].getNextMove(), color);
-        this.increaseIteration();
+    private void finish() {
+        this.calculateWinner();
+        this.isFinished = true;
     }
 
     public void run() {
-        while(this.getIteration() < 60){
+        boolean bothArePassing = false;
+        while (!bothArePassing & this.getTurn() < 120){
             try {
                 //thread to sleep for the specified number of milliseconds
                 Thread.sleep(500);
             } catch (java.lang.InterruptedException ie) {
                 System.out.println(ie);
             }
-            this.oneIteration(this.getIteration()%2+1);
 
-            if (this.getIteration() == 59) {
-                System.out.print("Iteration: " + 60 + " \n");
-                this.board.printBoard();
-            }
+            System.out.print("Iteration: " + this.getTurn() + " \n");
+            this.board.printBoard();
+
+            int color = this.getTurn()%2+1;
+            this.bots[color-1].calculateNextMove(this.board.copy(), color);
+            System.out.print(this.bots[color-1].getNextMove() + " \n");
+            this.board.doMove(this.bots[color-1].getNextMove(), color);
+
+            bothArePassing = this.bots[color-1].getNextMove().isPassing() & this.getLatestMove().isPassing();
+            this.setLatestMove(this.bots[color-1].getNextMove());
+            this.nextTurn();
+
         }
-        this.setIsFinished();
+        System.out.print("Iteration: " + this.getTurn() + " \n");
+        this.board.printBoard();
+        this.finish();
     }
 }
