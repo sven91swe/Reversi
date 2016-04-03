@@ -1,3 +1,4 @@
+import Game.Game;
 import Board.NextMove;
 import Board.ReversiBoard;
 import GameBot.NotAPlayer.NotABot;
@@ -10,7 +11,7 @@ import GameBot.GameBotCreator;
 public class Main {
 
     public static void main(String[] args) {
-        test3();
+        test4();
 
     }
 
@@ -75,5 +76,13 @@ public class Main {
 
     }
 
+    public static void test4(){
+        GameBot[] bots = new GameBot[2];
+        bots[0] = new ExampleBotCreator().getNewGameBot();
+        bots[1] = new ExampleBotCreator().getNewGameBot();
+
+        Game testGame = new Game(bots[0],bots[1]);
+        testGame.run();
+    }
 
 }
