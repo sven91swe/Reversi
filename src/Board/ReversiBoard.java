@@ -248,6 +248,10 @@ public class ReversiBoard {
         return this.boardState[x][y];
     }
 
+    /**
+     * TODO
+     * @return
+     */
     public int[][] getBoardInformation(){
         int[][] board = new int[8][8];
 
