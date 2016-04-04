@@ -26,7 +26,7 @@ public class ReversiBoard {
      * @param move
      * @return true if move is value, false if not.
      */
-    public boolean isValidMove(NextMove move, int color) {
+    public boolean isValidMove(Move move, int color) {
         if (!move.isPassing()) {
             HashMap<String, Integer> result = this.evaluateMove(move, color);
             return result.get("total") > 0;
@@ -41,7 +41,7 @@ public class ReversiBoard {
      * @return HaspMap with the keys leftup, left, leftdown, up, down, rightup, right, rightdown and total.
      * Describes the numbers of flipped pieces in each direction.
      */
-    public HashMap<String, Integer> evaluateMove(NextMove move, int color){
+    public HashMap<String, Integer> evaluateMove(Move move, int color){
         int total = 0;
         HashMap<String, Integer> result = new HashMap<String, Integer>();
         result.put("total", new Integer(0));
@@ -162,7 +162,7 @@ public class ReversiBoard {
      * @param color
      * @return
      */
-    public boolean doMove(NextMove move, int color) {
+    public boolean doMove(Move move, int color) {
         if (isValidMove(move, color)) {
             if(!move.isPassing()) {
                 this.boardState[move.getX()][move.getY()] = color;
@@ -207,12 +207,12 @@ public class ReversiBoard {
      *
      * @return a list for all potential moves.
      */
-    public ArrayList<NextMove> allPotentialMoves(int color){
-        ArrayList<NextMove> moves = new ArrayList<NextMove>();
-        NextMove temp;
+    public ArrayList<Move> allPotentialMoves(int color){
+        ArrayList<Move> moves = new ArrayList<Move>();
+        Move temp;
         for(int x=1; x<=8 ;x++){
             for(int y=1; y<=8; y++){
-                temp = new NextMove(x,y);
+                temp = new Move(x,y);
                 if(this.isValidMove(temp, color)){
                     moves.add(temp);
                 }
@@ -225,7 +225,7 @@ public class ReversiBoard {
      * @param m a non passing move. x in range [1,8], y in range [1,8]
      * @return 0 for empty, 1 and 2 if the color of the piece at that location.
      */
-    public int getPieceInformation(NextMove m){
+    public int getPieceInformation(Move m){
         if(m.isPassing()){
             throw new IllegalArgumentException("ReversiBoard.getPieceInformation: Can't be a passing move.");
         }

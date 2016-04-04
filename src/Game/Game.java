@@ -1,6 +1,6 @@
 package Game;
 
-import Board.NextMove;
+import Board.Move;
 import Board.ReversiBoard;
 import GameBot.GameBot;
 
@@ -10,7 +10,7 @@ import GameBot.GameBot;
 public class Game {
     private ReversiBoard board = new ReversiBoard();
     private GameBot[] bots = new GameBot[2];
-    private NextMove latestMove = new NextMove(false);
+    private Move latestMove = new Move(false);
     private int turn = 0;
     private boolean isFinished = false;
     private int winner;
@@ -24,8 +24,8 @@ public class Game {
 
     public GameBot[] getBots() {return this.bots;}
 
-    public NextMove getLatestMove() {return this.latestMove;}
-    private void setLatestMove(NextMove latestMove){this.latestMove = latestMove;}
+    public Move getLatestMove() {return this.latestMove;}
+    private void setLatestMove(Move latestMove){this.latestMove = latestMove;}
 
     private int getTurn() {return this.turn;}
     private void nextTurn() {this.turn += 1;}
@@ -66,11 +66,11 @@ public class Game {
 
             int color = this.getTurn()%2+1;
             this.bots[color-1].calculateNextMove(this.board.copy(), color);
-            System.out.print(this.bots[color-1].getNextMove() + " \n");
-            this.board.doMove(this.bots[color-1].getNextMove(), color);
+            System.out.print(this.bots[color-1].getMove() + " \n");
+            this.board.doMove(this.bots[color-1].getMove(), color);
 
-            bothArePassing = this.bots[color-1].getNextMove().isPassing() & this.getLatestMove().isPassing();
-            this.setLatestMove(this.bots[color-1].getNextMove());
+            bothArePassing = this.bots[color-1].getMove().isPassing() & this.getLatestMove().isPassing();
+            this.setLatestMove(this.bots[color-1].getMove());
             this.nextTurn();
 
         }

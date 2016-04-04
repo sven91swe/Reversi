@@ -1,29 +1,27 @@
 package Board;
 
-import java.util.*;
-
-public class NextMove {
+public class Move {
     private int x;
     private int y;
     private boolean passing;
 
-    public NextMove(){
+    public Move(){
         this(0,0,true);
     }
     /**
      * @param pass True. This constructor should only be used when you intend to pass. False will generate IllegalArgumentException.
      */
-    public NextMove(boolean pass){
+    public Move(boolean pass){
        this(0,0,pass);
     }
     /**
      * @param x in range [1,8]
      * @param y in range [1,8]
      */
-    public NextMove(int x, int y){
+    public Move(int x, int y){
         this(x,y,false);
     }
-    private NextMove(int x, int y, boolean pass){
+    private Move(int x, int y, boolean pass){
         super();
         this.x = x;
         this.y = y;

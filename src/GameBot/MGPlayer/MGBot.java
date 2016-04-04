@@ -2,7 +2,7 @@ package GameBot.MGPlayer;
 
 import Board.ReversiBoard;
 import GameBot.GameBot;
-import Board.NextMove;
+import Board.Move;
 
 /**
  * Created by Sven Eriksson on 2016-03-25.
@@ -18,8 +18,8 @@ public class MGBot extends GameBot {
     @Override
     public void calculateNextMove(ReversiBoard reversiBoard, int colour) {
         this.isRunning = true;
-        NextMove temp = new NextMove();
-        this.setNextMove(temp);
+        Move temp = new Move();
+        this.setMove(temp);
 
         this.isRunning = false;
     }

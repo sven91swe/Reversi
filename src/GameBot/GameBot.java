@@ -1,6 +1,6 @@
 package GameBot;
 
-import Board.NextMove;
+import Board.Move;
 import Board.ReversiBoard;
 
 /**
@@ -8,7 +8,7 @@ import Board.ReversiBoard;
  */
 abstract public class GameBot {
     protected boolean isRunning = false;
-    private NextMove nextMove = new NextMove();
+    private Move move = new Move();
     private int version = 0;
     private String name = "Unknown";
     private String creator = "Unknown";
@@ -27,18 +27,18 @@ abstract public class GameBot {
 
     /**
      *
-     * @param nextMove
+     * @param move
      * null means pass
      * Otherwise an array with two integers in the range [1,8] is expected. This will indicate the move that you will do.
      */
 
 
-    protected void setNextMove(NextMove nextMove){
-        this.nextMove = nextMove;
+    protected void setMove(Move move){
+        this.move = move;
     }
 
-    public NextMove getNextMove(){
-        return this.nextMove;
+    public Move getMove(){
+        return this.move;
     }
 
     public void stopCalculating(){
