@@ -1,5 +1,8 @@
 
 Board
+Game
 GameBot
 GameBot.ExamplePlayer
 GameBot.MGPlayer
+GameBot.NotAPlayer
+Logger
