@@ -38,7 +38,7 @@ public final class Game {
         ReversiBoard board = new ReversiBoard();
         GameBot[] bots = {B0, B1};
 
-        int color = 2;
+        int color = 0; //First update of color will set this to 1.
         int botNumber;
 
         boolean bothArePassing = currentMove.isPassing() && lastMove.isPassing();
