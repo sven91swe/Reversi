@@ -248,6 +248,18 @@ public class ReversiBoard {
         return this.boardState[x][y];
     }
 
+    public int[][] getBoardInformation(){
+        int[][] board = new int[8][8];
+
+        for(int x=0; x<8; x++){
+            for(int y=0; y<8;y++){
+                board[x][y] = this.getPieceInformation(x+1, y+1);
+            }
+        }
+
+        return board;
+    }
+
 
     public void printBoard(){
         System.out.println("BoardState:");
