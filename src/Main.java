@@ -87,6 +87,13 @@ public class Main {
 
         GameOld testGameOld = new GameOld(B1,B2);
         testGameOld.run();
+
+
+        //winner = Game.playGame(B2, B1, logger);
+        //System.out.print(winner);
+
+        //GameOld testGameOld = new GameOld(B2,B1);
+        //testGameOld.run();
     }
 
 }

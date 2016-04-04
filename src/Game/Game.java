@@ -38,7 +38,7 @@ public final class Game {
         ReversiBoard board = new ReversiBoard();
         GameBot[] bots = {B0, B1};
 
-        int color = 1;
+        int color = 2;
         int botNumber;
 
         boolean bothArePassing = currentMove.isPassing() && lastMove.isPassing();
