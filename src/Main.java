@@ -70,7 +70,7 @@ public class Main {
 
     public static void test4(){
         GameBot[] bots = new GameBot[2];
-        bots[0] = new ExampleBotCreator().getNewGameBot();
+        bots[0] = new NotABotCreator().getNewGameBot();
         bots[1] = new ExampleBotCreator().getNewGameBot();
 
         GameOld testGameOld = new GameOld(bots[0],bots[1]);
