@@ -1,15 +1,17 @@
-import Game.Game;
+import Game.GameOld;
 import Board.Move;
 import Board.ReversiBoard;
 import GameBot.ExamplePlayer.ExampleBotCreator;
 import GameBot.GameBot;
 import GameBot.GameBotCreator;
+import Game.Game;
+import GameBot.NotAPlayer.NotABotCreator;
+import Logger.GameLogger;
 
 public class Main {
 
     public static void main(String[] args) {
-        test4();
-
+        test5();
     }
 
     public static void test1(){
@@ -84,8 +86,19 @@ public class Main {
         bots[0] = new ExampleBotCreator().getNewGameBot();
         bots[1] = new ExampleBotCreator().getNewGameBot();
 
-        Game testGame = new Game(bots[0],bots[1]);
-        testGame.run();
+        GameOld testGameOld = new GameOld(bots[0],bots[1]);
+        testGameOld.run();
+    }
+
+    public static void test5(){
+        GameBot B1 = new ExampleBotCreator().getNewGameBot();
+        GameBot B2 = new NotABotCreator().getNewGameBot();
+
+        GameLogger logger = new GameLogger(B1, B2, 1);
+
+        GameBot winner = Game.playGame(B1, B2, logger);
+
+        System.out.print(winner);
     }
 
 }

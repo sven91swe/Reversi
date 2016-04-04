@@ -68,4 +68,8 @@ abstract public class GameBot {
     protected void setCreator(String c){
         this.creator = c;
     }
+
+    public String toString(){
+        return this.name + ", v." + this.version + ", made by: " + this.creator;
+    }
 }
