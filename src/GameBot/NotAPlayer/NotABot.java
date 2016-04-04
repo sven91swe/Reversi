@@ -2,11 +2,7 @@ package GameBot.NotAPlayer;
 
 import Board.ReversiBoard;
 import GameBot.GameBot;
-<<<<<<< eda90ec9b8273b148d425361682fdefa10957093
 import Board.Move;
-=======
-import Board.NextMove;
->>>>>>> New GameBot package added. Note that it does not include a bot.
 
 import java.util.ArrayList;
 
@@ -25,9 +21,9 @@ public class NotABot extends GameBot {
     public void calculateNextMove(ReversiBoard reversiBoard, int color) {
         this.isRunning = true;
 
-        ArrayList<NextMove> list = reversiBoard.allPotentialMoves(color);
+        ArrayList<Move> list = reversiBoard.allPotentialMoves(color);
 
-        NextMove testMove = null;
+        Move testMove = null;
         int testResult;
         int bestResult = -1;
         if(list.size() != 0) {
@@ -42,9 +38,9 @@ public class NotABot extends GameBot {
             }
             testMove = list.get(choice);
         }else{
-            testMove = new NextMove(true);
+            testMove = new Move(true);
         }
-        this.setNextMove(testMove);
+        this.setMove(testMove);
 
         this.isRunning = false;
     }
