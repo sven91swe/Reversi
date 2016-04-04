@@ -250,14 +250,14 @@ public class ReversiBoard {
 
     /**
      * TODO
-     * @return
+     * @return 8x8 integer array of the board state. Note that coordinates (x,y) corresponds to indices (i,j) though (x,y) = (i+1,j+1).
      */
     public int[][] getBoardInformation(){
         int[][] board = new int[8][8];
 
-        for(int x=0; x<8; x++){
-            for(int y=0; y<8;y++){
-                board[x][y] = this.getPieceInformation(x+1, y+1);
+        for(int i=0; i<8; i++){
+            for(int j=0; j<8;j++){
+                board[i][j] = this.getPieceInformation(i+1, j+1);
             }
         }
 
@@ -267,9 +267,9 @@ public class ReversiBoard {
 
     public void printBoard(){
         System.out.println("BoardState:");
-        for(int j=1;j<9;j++){
-            for(int i=1;i<9;i++){
-                System.out.print(this.boardState[i][j] + " ");
+        for(int y=1;y<=8;y++){
+            for(int x=1;x<=8;x++){
+                System.out.print(this.boardState[x][y] + " ");
             }
             System.out.println("");
         }
@@ -279,9 +279,9 @@ public class ReversiBoard {
     private int[][] copyBoardState(){
         int[][] newBoard = new int[10][10];
 
-        for(int i=0;i<10;i++){
-            for(int j=0;j<10;j++){
-                newBoard[i][j] = this.boardState[i][j];
+        for(int x=0;x<10;x++){
+            for(int y=0;y<10;y++){
+                newBoard[x][y] = this.boardState[x][y];
             }
         }
         return newBoard;
@@ -294,11 +294,11 @@ public class ReversiBoard {
         board[4][5]=2;
         board[5][4]=2;
 
-        for(int i=0;i<10;i++){
-            board[i][0]= -1;
-            board[i][9]= -1;
-            board[0][i]= -1;
-            board[9][i]= -1;
+        for(int x=0;x<10;x++){
+            board[x][0]= -1;
+            board[x][9]= -1;
+            board[0][x]= -1;
+            board[9][x]= -1;
         }
         return board;
     }
@@ -306,9 +306,9 @@ public class ReversiBoard {
     //TODO: Add javadoc.
     public int getScore(int color){
         int sum = 0;
-        for(int i=1; i<=8; i++){
-            for(int j=1; j<=8; j++){
-                if(this.boardState[i][j]==color){
+        for(int x=1; x<=8; x++){
+            for(int y=1; y<=8; y++){
+                if(this.boardState[x][y]==color){
                     sum++;
                 }
             }
