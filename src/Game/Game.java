@@ -5,6 +5,8 @@ import Board.ReversiBoard;
 import GameBot.GameBot;
 import Logger.GameLogger;
 
+import java.util.concurrent.*;
+
 /**
  * Created by Sven Eriksson on 2016-04-04.
  * Based on code made by Joel Magnusson on 2016-04-03.
@@ -135,12 +137,25 @@ public final class Game {
      * @return Move from the bot. If it ran out of time, returns null.
      */
     private static Move getNextMoveWithinTime(GameBot bot, ReversiBoard board, int color){
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<Move> future = executor.submit(new InterruptibleTask(bot,board,color));
 
-        //TODO implement time control.
+        try {
+            //Return future move, if within time limit (10 seconds, hardcoded).
+            return future.get(10, TimeUnit.SECONDS);
+        } catch (TimeoutException e) {
+            future.cancel(true);
+            System.out.println("TimeoutException!");
+        } catch (InterruptedException e) {
+            future.cancel(true);
+            System.out.println("InterruptedException!");
+        } catch (ExecutionException e) {
+            future.cancel(true);
+            System.out.println("ExecutionException!");
+        }
+        executor.shutdownNow();
+
         //Return null if out of time.
-
-        bot.calculateNextMove(board.copy(), color);
-
-        return bot.getMove();
+        return null;
     }
 }
