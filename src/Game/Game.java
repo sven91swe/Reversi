@@ -12,6 +12,10 @@ import java.util.concurrent.*;
  * Based on code made by Joel Magnusson on 2016-04-03.
  */
 public final class Game {
+
+    static ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(2);
+    static ExecutorService executorService = Executors.newFixedThreadPool(2);
+
     private Game(){}
 
     /**
@@ -137,8 +141,7 @@ public final class Game {
      * @return Move from the bot. If it ran out of time, returns null.
      */
     private static Move getNextMoveWithinTime(GameBot bot, ReversiBoard board, int color){
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<Move> future = executor.submit(new InterruptibleTask(bot, board.copy(), color));
+        Future<Move> future = Game.executorService.submit(new InterruptibleTask(bot, board.copy(), color));
         Move temp = null;
 
         try {
@@ -155,8 +158,6 @@ public final class Game {
             future.cancel(true);
             System.out.println("ExecutionException!");
         }
-        executor.shutdownNow();
-
         //Return null if out of time.
         return temp;
     }
