@@ -1,14 +1,15 @@
-package GameBot.ExamplePlayer;
+package GameBot.MKBot;
 
 import GameBot.GameBot;
 import GameBot.GameBotCreator;
+import GameBot.MKBot.MKBot;
 
 /**
  * Created by Sven Eriksson on 2016-03-26.
  */
-public class ExampleBotCreator extends GameBotCreator {
+public class MKBotCreator extends GameBotCreator {
     @Override
     protected GameBot createNewGameBot() {
-        return new ExampleBot();
+        return new MKBot();
     }
 }

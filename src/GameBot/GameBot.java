@@ -13,15 +13,16 @@ abstract public class GameBot {
     private String name = "Unknown";
     private String creator = "Unknown";
 
-    /**
-     * This method is responsible for doing the calculation for the next move.
+    /** This method is responsible for doing the calculation for the next move.
+     *
      * The next move should be saved in the class variable nextMove.
      * You will have 10 seconds to calculate a move.
      *
      * It is highly recommended that isRunning is set to true and nextMove to null when this method is initialized.
      * Once isRunning is changed to false, this method must be exited within 2 seconds.
      *
-     * @param board 10x10 2d array. Outer edges are -1, empty areas are 0, 1 and 2 represent game pieces
+     * @param board A board object representing the current game board state.
+     * @param color The color of this bot, 1 or 2.
      */
     public abstract void calculateNextMove(ReversiBoard board, int color);
 
@@ -29,8 +30,6 @@ abstract public class GameBot {
      *
      * @param move An object of the type Move, represeting a valid move.
      */
-
-
     protected void setMove(Move move){
         this.move = move;
     }

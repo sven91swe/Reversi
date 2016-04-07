@@ -84,7 +84,7 @@ public class Main {
         GameBot B2 = new NotABotCreator().getNewGameBot();
 
         GameLogger logger = new GameLogger(B1, B2, 1);
-        GameBot winner = Game.playGame(B1, B2, logger, false);
+        GameBot winner = Game.playGame(B1, B2, logger, true);
         System.out.print(winner);
     }
 

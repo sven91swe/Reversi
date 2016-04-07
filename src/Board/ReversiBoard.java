@@ -16,14 +16,19 @@ public class ReversiBoard {
         this.boardState = newBoard;
     }
 
+    /**
+     * Provides a deep copy of this object.
+     * @return a copy of this object.
+     */
+
     public ReversiBoard copy(){
         int[][] newBoardState = this.copyBoardState();
         return new ReversiBoard(newBoardState);
     }
 
-    /**
-     * @param color
-     * @param move
+    /** Tests is a move is valid.
+     * @param color The color of the bot that is testing.
+     * @param move The Move that is supposed to be tested.
      * @return true if move is value, false if not.
      */
     public boolean isValidMove(Move move, int color) {
@@ -35,9 +40,9 @@ public class ReversiBoard {
         }
     }
 
-    /**
-     * @param color
-     * @param move
+    /** Provides a HashMap that contains how many pieces that would be flipped in each direction by the Move.
+     * @param color The color of the bot that is testing.
+     * @param move The Move that is supposed to be tested.
      * @return HaspMap with the keys leftup, left, leftdown, up, down, rightup, right, rightdown and total.
      * Describes the numbers of flipped pieces in each direction.
      */
@@ -156,8 +161,8 @@ public class ReversiBoard {
         }
     }
 
-    /**
-     *
+    /** Do the intended move on the board.
+     * The board state will be updated once the move is done.
      * @param move
      * @param color
      * @return
@@ -181,6 +186,7 @@ public class ReversiBoard {
         }
     }
 
+
     private boolean doMoveInDirection(int x, int y, int deltaX, int deltaY, int color){
         int opponentColor;
         if(color==1){
@@ -203,9 +209,9 @@ public class ReversiBoard {
         }
     }
 
-    /**
+    /** A list for all valid moves.
      *
-     * @return a list for all potential moves.
+     * @return a list for all valid moves.
      */
     public ArrayList<Move> allPotentialMoves(int color){
         ArrayList<Move> moves = new ArrayList<Move>();
@@ -221,7 +227,7 @@ public class ReversiBoard {
         return moves;
     }
 
-    /**
+    /** Information about a potential piece in a specified location.
      * @param m a non passing move. x in range [1,8], y in range [1,8]
      * @return 0 for empty, 1 and 2 if the color of the piece at that location.
      */
@@ -232,7 +238,7 @@ public class ReversiBoard {
         return this.getPieceInformation(m.getX(), m.getY());
     }
 
-    /**
+    /** Information about a potential piece in a specified location.
      * @param x in range [1,8]
      * @param y in range [1,8]
      * @return 0 for empty, 1 and 2 if the color of the piece at that location.
@@ -248,8 +254,8 @@ public class ReversiBoard {
         return this.boardState[x][y];
     }
 
-    /**
-     * TODO
+    /** A 2d int array that represents the current state of the board.
+     * Note that the indices are off by 1 due to Java indices starting at 0.
      * @return 8x8 integer array of the board state. Note that coordinates (x,y) corresponds to indices (i,j) though (x,y) = (i+1,j+1).
      */
     public int[][] getBoardInformation(){
@@ -264,16 +270,23 @@ public class ReversiBoard {
         return board;
     }
 
-
     public void printBoard(){
-        System.out.println("BoardState:");
+        System.out.println(this);
+    }
+
+    public String toString(){
+        StringBuilder s = new StringBuilder();
+
+        s.append("BoardState: \n");
         for(int y=1;y<=8;y++){
             for(int x=1;x<=8;x++){
-                System.out.print(this.boardState[x][y] + " ");
+                s.append(this.boardState[x][y] + " ");
             }
-            System.out.println("");
+            s.append("\n");
         }
-        System.out.println("");
+        s.append("\n");
+
+        return s.toString();
     }
 
     private int[][] copyBoardState(){
@@ -303,7 +316,11 @@ public class ReversiBoard {
         return board;
     }
 
-    //TODO: Add javadoc.
+    /** Get the score of one color.
+     * Calculates the number of pieces of one color.
+     * @param color
+     * @return the number of pieces of one color.
+     */
     public int getScore(int color){
         int sum = 0;
         for(int x=1; x<=8; x++){
