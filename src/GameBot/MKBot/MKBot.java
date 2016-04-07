@@ -19,18 +19,17 @@ public class MKBot extends GameBot {
     }
     @Override
     public void calculateNextMove(ReversiBoard reversiBoard, int color) {
-        // Notify the main program that we are running
         this.isRunning = true;
+        
         ArrayList<Move> list = reversiBoard.allPotentialMoves(color);
         Move move = null;
-        
         if(list.size() != 0) {
             move = list.get(0);
         }else{
             move = new Move(true);
         }
-        
         this.setMove(move);
+        
         this.isRunning = false;
     }
 }

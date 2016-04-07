@@ -1,4 +1,4 @@
-package GameBot.ExamplePlayer;
+package GameBot.MKBot;
 
 import GameBot.GameBot;
 import GameBot.GameBotCreator;
