@@ -67,8 +67,6 @@ public class Main {
                 }
             }
         }
-
-
     }
 
     public static void test4(){
@@ -88,5 +86,4 @@ public class Main {
         GameBot winner = Game.playGame(B1, B2, logger, true);
         System.out.print(winner);
     }
-
 }
