@@ -138,11 +138,13 @@ public final class Game {
      */
     private static Move getNextMoveWithinTime(GameBot bot, ReversiBoard board, int color){
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<Move> future = executor.submit(new InterruptibleTask(bot,board,color));
+        Future<Move> future = executor.submit(new InterruptibleTask(bot, board.copy(), color));
+        Move temp = null;
 
         try {
             //Return future move, if within time limit (10 seconds, hardcoded).
-            return future.get(10, TimeUnit.SECONDS);
+
+            temp = future.get(10, TimeUnit.SECONDS);
         } catch (TimeoutException e) {
             future.cancel(true);
             System.out.println("TimeoutException!");
@@ -156,6 +158,6 @@ public final class Game {
         executor.shutdownNow();
 
         //Return null if out of time.
-        return null;
+        return temp;
     }
 }
