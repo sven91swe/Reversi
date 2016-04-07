@@ -5,4 +5,5 @@ GameBot
 GameBot.ExamplePlayer
 GameBot.MGPlayer
 GameBot.NotAPlayer
+GameBot.NotAPlayer.Brain
 Logger
