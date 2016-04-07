@@ -18,7 +18,7 @@ abstract public class GameBot {
      * The next move should be saved in the class variable nextMove.
      * You will have 10 seconds to calculate a move.
      *
-     * It is highly recommended that isRunning is set to true and nextMove to null when this method is initialized.
+     * It is highly recommended that isRunning is set to true and move to any legal move when this method is initialized.
      * Once isRunning is changed to false, this method must be exited within 2 seconds.
      *
      * @param board 10x10 2d array. Outer edges are -1, empty areas are 0, 1 and 2 represent game pieces
@@ -28,11 +28,9 @@ abstract public class GameBot {
     /**
      *
      * @param move
-     * null means pass
+     * Passing is ordered by setting the move variable to the object returned by the constructor "Move(true)".
      * Otherwise an array with two integers in the range [1,8] is expected. This will indicate the move that you will do.
      */
-
-
     protected void setMove(Move move){
         this.move = move;
     }
