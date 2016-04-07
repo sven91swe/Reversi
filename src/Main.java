@@ -1,12 +1,15 @@
-import Game.GameOld;
 import Board.Move;
 import Board.ReversiBoard;
-import GameBot.ExamplePlayer.ExampleBotCreator;
+import Game.GameOld;
+import Game.Game;
+import Logger.GameLogger;
 import GameBot.GameBot;
 import GameBot.GameBotCreator;
-import Game.Game;
+
+import GameBot.ExamplePlayer.ExampleBotCreator;
 import GameBot.NotAPlayer.NotABotCreator;
-import Logger.GameLogger;
+import GameBot.MKBot.MKBotCreator;
+// Remember to add the new bots!
 
 public class Main {
 
