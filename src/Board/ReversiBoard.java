@@ -26,7 +26,7 @@ public class ReversiBoard {
      * @param move
      * @return true if move is value, false if not.
      */
-    public boolean isValidMove(NextMove move, int color) {
+    public boolean isValidMove(Move move, int color) {
         if (!move.isPassing()) {
             HashMap<String, Integer> result = this.evaluateMove(move, color);
             return result.get("total") > 0;
@@ -41,7 +41,7 @@ public class ReversiBoard {
      * @return HaspMap with the keys leftup, left, leftdown, up, down, rightup, right, rightdown and total.
      * Describes the numbers of flipped pieces in each direction.
      */
-    public HashMap<String, Integer> evaluateMove(NextMove move, int color){
+    public HashMap<String, Integer> evaluateMove(Move move, int color){
         int total = 0;
         HashMap<String, Integer> result = new HashMap<String, Integer>();
         result.put("total", new Integer(0));
@@ -162,7 +162,7 @@ public class ReversiBoard {
      * @param color
      * @return
      */
-    public boolean doMove(NextMove move, int color) {
+    public boolean doMove(Move move, int color) {
         if (isValidMove(move, color)) {
             if(!move.isPassing()) {
                 this.boardState[move.getX()][move.getY()] = color;
@@ -207,12 +207,12 @@ public class ReversiBoard {
      *
      * @return a list for all potential moves.
      */
-    public ArrayList<NextMove> allPotentialMoves(int color){
-        ArrayList<NextMove> moves = new ArrayList<NextMove>();
-        NextMove temp;
+    public ArrayList<Move> allPotentialMoves(int color){
+        ArrayList<Move> moves = new ArrayList<Move>();
+        Move temp;
         for(int x=1; x<=8 ;x++){
             for(int y=1; y<=8; y++){
-                temp = new NextMove(x,y);
+                temp = new Move(x,y);
                 if(this.isValidMove(temp, color)){
                     moves.add(temp);
                 }
@@ -225,7 +225,7 @@ public class ReversiBoard {
      * @param m a non passing move. x in range [1,8], y in range [1,8]
      * @return 0 for empty, 1 and 2 if the color of the piece at that location.
      */
-    public int getPieceInformation(NextMove m){
+    public int getPieceInformation(Move m){
         if(m.isPassing()){
             throw new IllegalArgumentException("ReversiBoard.getPieceInformation: Can't be a passing move.");
         }
@@ -248,12 +248,28 @@ public class ReversiBoard {
         return this.boardState[x][y];
     }
 
+    /**
+     * TODO
+     * @return 8x8 integer array of the board state. Note that coordinates (x,y) corresponds to indices (i,j) though (x,y) = (i+1,j+1).
+     */
+    public int[][] getBoardInformation(){
+        int[][] board = new int[8][8];
+
+        for(int i=0; i<8; i++){
+            for(int j=0; j<8;j++){
+                board[i][j] = this.getPieceInformation(i+1, j+1);
+            }
+        }
+
+        return board;
+    }
+
 
     public void printBoard(){
         System.out.println("BoardState:");
-        for(int i=1;i<9;i++){
-            for(int j=1;j<9;j++){
-                System.out.print(this.boardState[i][j] + " ");
+        for(int y=1;y<=8;y++){
+            for(int x=1;x<=8;x++){
+                System.out.print(this.boardState[x][y] + " ");
             }
             System.out.println("");
         }
@@ -263,9 +279,9 @@ public class ReversiBoard {
     private int[][] copyBoardState(){
         int[][] newBoard = new int[10][10];
 
-        for(int i=0;i<10;i++){
-            for(int j=0;j<10;j++){
-                newBoard[i][j] = this.boardState[i][j];
+        for(int x=0;x<10;x++){
+            for(int y=0;y<10;y++){
+                newBoard[x][y] = this.boardState[x][y];
             }
         }
         return newBoard;
@@ -278,12 +294,25 @@ public class ReversiBoard {
         board[4][5]=2;
         board[5][4]=2;
 
-        for(int i=0;i<10;i++){
-            board[i][0]= -1;
-            board[i][9]= -1;
-            board[0][i]= -1;
-            board[9][i]= -1;
+        for(int x=0;x<10;x++){
+            board[x][0]= -1;
+            board[x][9]= -1;
+            board[0][x]= -1;
+            board[9][x]= -1;
         }
         return board;
+    }
+
+    //TODO: Add javadoc.
+    public int getScore(int color){
+        int sum = 0;
+        for(int x=1; x<=8; x++){
+            for(int y=1; y<=8; y++){
+                if(this.boardState[x][y]==color){
+                    sum++;
+                }
+            }
+        }
+        return sum;
     }
 }
