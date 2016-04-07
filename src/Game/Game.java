@@ -13,8 +13,8 @@ import java.util.concurrent.*;
  */
 public final class Game {
     //TODO: Consider making this into an object class due to these two.
-    static ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(2);
-    static ExecutorService executorService = Executors.newFixedThreadPool(2);
+    private static ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(2);
+    private static ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     private Game(){}
 
