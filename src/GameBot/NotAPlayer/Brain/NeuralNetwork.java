@@ -1,4 +1,4 @@
-package Brain;
+package GameBot.NotAPlayer.Brain;
 
 /**
  * Created by Joel Magnusson on 2016-04-04.
