@@ -65,7 +65,7 @@ public class GameOld {
             this.board.printBoard();
 
             int color = this.getTurn()%2+1;
-            this.bots[color-1].calculateNextMove(this.board.copy(), color);
+            this.bots[color-1].calculateNextMove(this.board.copy(), color, null);
             System.out.print(this.bots[color-1].getMove() + " \n");
             this.board.doMove(this.bots[color-1].getMove(), color);
 

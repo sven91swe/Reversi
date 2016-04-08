@@ -59,7 +59,7 @@ public class Main {
                 }
                 System.out.print("Iteration: " + (2*i+j) + " \n");
                 board.printBoard();
-                bots[j].calculateNextMove(board.copy(), j+1);
+                bots[j].calculateNextMove(board.copy(), j+1, null);
                 move = bots[j].getMove();
                 System.out.print(move + " \n");
                 board.doMove(move, j+1);
