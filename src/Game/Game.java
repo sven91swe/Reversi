@@ -5,6 +5,7 @@ import Board.ReversiBoard;
 import GameBot.GameBot;
 import Logger.GameLogger;
 
+import java.util.ArrayList;
 import java.util.concurrent.*;
 
 /**
@@ -43,6 +44,7 @@ public final class Game {
         Move lastMove = new Move(false);
         ReversiBoard board = new ReversiBoard();
         GameBot[] bots = {B0, B1};
+        ArrayList<Move> allPreviousMoves = new ArrayList<Move>();
 
         int color = 0; //First update of color will set this to 1.
         int botNumber;
@@ -61,7 +63,8 @@ public final class Game {
             lastMove = currentMove;
 
             //Get the next move from the bot. Check time. currentMove = null if it took too long.
-            currentMove = Game.getNextMoveWithinTime(bots[botNumber], board, color);
+            //Make sure that the bots only recieves copies of the board and arrayList.
+            currentMove = Game.getNextMoveWithinTime(bots[botNumber], board.copy(), color, new ArrayList<Move>(allPreviousMoves));
 
             //Check time constraint..
             if (currentMove == null) {
@@ -78,6 +81,7 @@ public final class Game {
 
             //Log move.
             gameLogger.newMove(bots[botNumber], currentMove, color);
+            allPreviousMoves.add(currentMove);
 
             //Check if move is valid.
             if (!board.isValidMove(currentMove, color)) {
@@ -140,10 +144,10 @@ public final class Game {
      * @param color
      * @return Move from the bot. If it ran out of time, returns null.
      */
-    private static Move getNextMoveWithinTime(GameBot bot, ReversiBoard board, int color){
+    private static Move getNextMoveWithinTime(GameBot bot, ReversiBoard board, int color, ArrayList<Move> allPreviousMoves){
         MoveTimer moveTimer = new MoveTimer(bot);
         Future<Move> future =
-                Game.executorService.submit(new InterruptibleTask(bot, board.copy(), color));
+                Game.executorService.submit(new InterruptibleTask(bot, board, color, allPreviousMoves));
 
         ScheduledFuture scheduledFuture =
                 Game.scheduledExecutorService.schedule(moveTimer, 10, TimeUnit.SECONDS);

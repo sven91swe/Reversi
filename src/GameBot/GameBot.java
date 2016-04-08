@@ -3,6 +3,8 @@ package GameBot;
 import Board.Move;
 import Board.ReversiBoard;
 
+import java.util.ArrayList;
+
 /**
  * Created by Sven Eriksson on 2016-03-25.
  */
@@ -24,7 +26,11 @@ abstract public class GameBot {
      * @param board A board object representing the current game board state.
      * @param color The color of this bot, 1 or 2.
      */
-    public abstract void calculateNextMove(ReversiBoard board, int color);
+    public abstract void calculateNextMove(ReversiBoard board, int color, ArrayList<Move> allPreviousMoves);
+
+
+    //public abstract void calculateNextMove(ReversiBoard board, int color);
+
 
     /**
      *
