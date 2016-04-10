@@ -21,7 +21,7 @@ public class MKBot extends GameBot {
     }
     
     @Override
-    public void calculateNextMove(ReversiBoard reversiBoard, int color) {
+    public void calculateNextMove(ReversiBoard reversiBoard, int color, ArrayList<Move> allPreviousMoves) {
         this.isRunning = true;
         
         // Safety measure, set the move to something valid

@@ -4,6 +4,8 @@ import Board.ReversiBoard;
 import GameBot.GameBot;
 import Board.Move;
 
+import java.util.ArrayList;
+
 /**
  * Created by Sven Eriksson on 2016-03-25.
  */
@@ -16,7 +18,7 @@ public class MGBot extends GameBot {
 
     }
     @Override
-    public void calculateNextMove(ReversiBoard reversiBoard, int colour) {
+    public void calculateNextMove(ReversiBoard reversiBoard, int colour, ArrayList<Move> allPreviousMoves) {
         this.isRunning = true;
         Move temp = new Move();
         this.setMove(temp);

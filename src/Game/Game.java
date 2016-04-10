@@ -5,6 +5,7 @@ import Board.ReversiBoard;
 import GameBot.GameBot;
 import Logger.GameLogger;
 
+import java.util.ArrayList;
 import java.util.concurrent.*;
 
 /**
@@ -12,6 +13,10 @@ import java.util.concurrent.*;
  * Based on code made by Joel Magnusson on 2016-04-03.
  */
 public final class Game {
+    //TODO: Consider making this into an object class due to these two.
+    private static ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(2);
+    private static ExecutorService executorService = Executors.newFixedThreadPool(2);
+
     private Game(){}
 
     /**
@@ -39,6 +44,7 @@ public final class Game {
         Move lastMove = new Move(false);
         ReversiBoard board = new ReversiBoard();
         GameBot[] bots = {B0, B1};
+        ArrayList<Move> allPreviousMoves = new ArrayList<Move>();
 
         int color = 0; //First update of color will set this to 1.
         int botNumber;
@@ -57,7 +63,8 @@ public final class Game {
             lastMove = currentMove;
 
             //Get the next move from the bot. Check time. currentMove = null if it took too long.
-            currentMove = Game.getNextMoveWithinTime(bots[botNumber], board, color);
+            //Make sure that the bots only recieves copies of the board and arrayList.
+            currentMove = Game.getNextMoveWithinTime(bots[botNumber], board.copy(), color, new ArrayList<Move>(allPreviousMoves));
 
             //Check time constraint..
             if (currentMove == null) {
@@ -74,6 +81,7 @@ public final class Game {
 
             //Log move.
             gameLogger.newMove(bots[botNumber], currentMove, color);
+            allPreviousMoves.add(currentMove);
 
             //Check if move is valid.
             if (!board.isValidMove(currentMove, color)) {
@@ -136,26 +144,41 @@ public final class Game {
      * @param color
      * @return Move from the bot. If it ran out of time, returns null.
      */
-    private static Move getNextMoveWithinTime(GameBot bot, ReversiBoard board, int color){
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<Move> future = executor.submit(new InterruptibleTask(bot,board,color));
+    private static Move getNextMoveWithinTime(GameBot bot, ReversiBoard board, int color, ArrayList<Move> allPreviousMoves){
+        MoveTimer moveTimer = new MoveTimer(bot);
+        Future<Move> future =
+                Game.executorService.submit(new InterruptibleTask(bot, board, color, allPreviousMoves));
+
+        ScheduledFuture scheduledFuture =
+                Game.scheduledExecutorService.schedule(moveTimer, 10, TimeUnit.SECONDS);
+
+        Move nextMove = null;
 
         try {
             //Return future move, if within time limit (10 seconds, hardcoded).
-            return future.get(10, TimeUnit.SECONDS);
+            nextMove = future.get(12, TimeUnit.SECONDS);
+            //If this returns true, moveTimers had not yet completed.
+            if(scheduledFuture.cancel(true)) {
+
+            } else {
+                //If moveTimer completed.
+                nextMove = moveTimer.getNextMove();
+            }
         } catch (TimeoutException e) {
             future.cancel(true);
+            nextMove = null;
             System.out.println("TimeoutException!");
         } catch (InterruptedException e) {
             future.cancel(true);
+            nextMove = null;
             System.out.println("InterruptedException!");
         } catch (ExecutionException e) {
             future.cancel(true);
+            nextMove = null;
             System.out.println("ExecutionException!");
         }
-        executor.shutdownNow();
 
-        //Return null if out of time.
-        return null;
+        //Return null if out of time or error..
+        return nextMove;
     }
 }

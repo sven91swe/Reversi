@@ -4,6 +4,7 @@ Game
 GameBot
 GameBot.ExamplePlayer
 GameBot.MGPlayer
+GameBot.MKBot
 GameBot.NotAPlayer
 GameBot.NotAPlayer.Brain
 Logger

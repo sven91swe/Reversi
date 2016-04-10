@@ -15,6 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         test5();
+
         System.out.print("\n");
         System.exit(0);
     }
@@ -58,7 +59,7 @@ public class Main {
                 }
                 System.out.print("Iteration: " + (2*i+j) + " \n");
                 board.printBoard();
-                bots[j].calculateNextMove(board.copy(), j+1);
+                bots[j].calculateNextMove(board.copy(), j+1, null);
                 move = bots[j].getMove();
                 System.out.print(move + " \n");
                 board.doMove(move, j+1);
@@ -69,8 +70,6 @@ public class Main {
                 }
             }
         }
-
-
     }
 
     public static void test4(){
@@ -87,8 +86,7 @@ public class Main {
         GameBot B2 = new NotABotCreator().getNewGameBot();
 
         GameLogger logger = new GameLogger(B1, B2, 1);
-        GameBot winner = Game.playGame(B1, B2, logger, false);
+        GameBot winner = Game.playGame(B1, B2, logger, true);
         System.out.print(winner);
     }
-
 }
