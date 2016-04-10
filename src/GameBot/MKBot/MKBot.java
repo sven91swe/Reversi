@@ -38,10 +38,8 @@ public class MKBot extends GameBot {
         if(root == null){ // Create the tree if it is not existing
             root = new Node( null, null, 1, reversiBoard);
         }else{ // Prune the tree and keep only the branch of the move just executed
-            
+            // TODO
         }
-        
-        
         
         this.isRunning = false;
     }

@@ -59,7 +59,7 @@ public class Node{
             newBoard.doMove(m, activePlayer);
             double scorePlayer1 = newBoard.getScore(1);
             double scorePlayer2 = newBoard.getScore(2);
-            double newNodeValue = scorePlayer1/scorePlayer2;
+            double newNodeValue = scorePlayer1/scorePlayer2; // TODO this should be done through a call to a general value function
             children.add(new Node(this, m, 3-activePlayer, newBoard, newNodeValue));
         }
     }

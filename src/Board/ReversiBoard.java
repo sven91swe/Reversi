@@ -332,4 +332,26 @@ public class ReversiBoard {
         }
         return sum;
     }
+    
+    /** Compare two boards for equality.
+     * The boards are equal if all positions have the same state between the boards.
+     * @param b - a ReversiBoard
+     * @return true if equal.
+     */
+    public boolean equals(ReversiBoard b){
+        int[][] board1;
+        int[][] board2;
+        board1 = this.getBoardInformation();
+        board2 = b.getBoardInformation();
+        int i,j;
+        for(int i; i<8; i++){
+            for(int j; j<8; j++){
+                if(board1[i][j] != board2[i][j]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
 }
