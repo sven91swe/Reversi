@@ -344,8 +344,8 @@ public class ReversiBoard {
         board1 = this.getBoardInformation();
         board2 = b.getBoardInformation();
         int i,j;
-        for(int i; i<8; i++){
-            for(int j; j<8; j++){
+        for(i=0; i<8; i++){
+            for(j=0; j<8; j++){
                 if(board1[i][j] != board2[i][j]){
                     return false;
                 }
