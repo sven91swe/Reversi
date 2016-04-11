@@ -43,4 +43,15 @@ public class Move {
     public String toString(){
         return "x=" + this.x + ", y=" + this.getY() + ", pass=" + this.passing;
     }
+    
+    public boolean equals(Move m){
+        int mx = m.getX();
+        int my = m.getY();
+        boolean mp = m.isPassing();
+        return (mx == x) && (my == y) && (mp == passing);
+    }
+    
+    public Move copy(){
+        return new Move(x,y,passing);
+    }
 }
