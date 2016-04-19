@@ -1,14 +1,55 @@
-package GameBot.ExamplePlayer;
+package GameBot.ThunderPlayer;
 
+import Game.Game;
+import Logger.GameLogger;
 import GameBot.GameBot;
 import GameBot.GameBotCreator;
+import java.util.ArrayList;
 
 /**
- * Created by Sven Eriksson on 2016-03-26.
+ * Created by Tor Djarv on 2016-04-19.
  */
 public class ThunderBotCreator extends GameBotCreator {
+
+    private int numOfContestents = 20;
+    private int numOfGenerations = 8;
+    private ThunderBot compete(ThunderBot b1,ThunderBot b2){
+	GameLogger logger = new GameLogger((GameBot)b1,(GameBot)b2,1);
+        GameBot winner = Game.playGame((GameBot)b1,(GameBot)b2,logger,false);
+	if (winner == null){
+	    return b1;
+	}else{
+	    return (ThunderBot)winner;
+	}
+    }
+    
+    private GameBot evolve(){
+	ArrayList<ThunderBot> bots = new ArrayList<ThunderBot>();
+	for (int i = 0; i<numOfContestents; i++){
+	    ThunderBot b = new ThunderBot();
+	    b.mutate();
+	    bots.add(b);
+	}
+	ThunderBot best=new ThunderBot();
+	for (int i = 0; i<numOfGenerations; i++){
+	    best = bots.get(0);
+	    for (int j = 1; j<bots.size(); j++){
+		best = compete(best,bots.get(i));
+	    }
+	    if (i<numOfGenerations-1){
+		for (int j = 0; j<bots.size(); j++){
+		    ThunderBot b = new ThunderBot(best);
+		    b.mutate();
+		    bots.set(j,b);
+		}
+	    }
+	}
+	return best;
+    }
+    
     @Override
-    protected GameBot ThunderNewGameBot() {
-        return new ThunderBot();
+    protected GameBot createNewGameBot() {
+        return evolve();
+	
     }
 }
