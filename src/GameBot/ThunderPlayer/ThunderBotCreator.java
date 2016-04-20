@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public class ThunderBotCreator extends GameBotCreator {
 
-    private int numOfContestents = 20;
-    private int numOfGenerations = 8;
+    private int numOfContestents = 10;
+    private int numOfGenerations = 10;
     private ThunderBot compete(ThunderBot b1,ThunderBot b2){
 	GameLogger logger = new GameLogger((GameBot)b1,(GameBot)b2,1);
         GameBot winner = Game.playGame((GameBot)b1,(GameBot)b2,logger,false);
@@ -23,7 +23,7 @@ public class ThunderBotCreator extends GameBotCreator {
 	}
     }
     
-    private GameBot evolve(){
+    private void evolve(){
 	ArrayList<ThunderBot> bots = new ArrayList<ThunderBot>();
 	for (int i = 0; i<numOfContestents; i++){
 	    ThunderBot b = new ThunderBot();
@@ -32,24 +32,34 @@ public class ThunderBotCreator extends GameBotCreator {
 	}
 	ThunderBot best=new ThunderBot();
 	for (int i = 0; i<numOfGenerations; i++){
+	    System.out.print("On generation "+(i+1)+" of "+numOfGenerations+"\r");
 	    best = bots.get(0);
 	    for (int j = 1; j<bots.size(); j++){
-		best = compete(best,bots.get(i));
+		best = compete(best,bots.get(j));
 	    }
 	    if (i<numOfGenerations-1){
 		for (int j = 0; j<bots.size(); j++){
-		    ThunderBot b = new ThunderBot(best);
-		    b.mutate();
+		    ThunderBot b;
+		    if (j!=1){
+			b = new ThunderBot(best);
+		    }else{
+			b = new ThunderBot();
+		    }
+		    if (j>1)
+			b.mutate();
 		    bots.set(j,b);
 		}
 	    }
 	}
-	return best;
+	System.out.println("");
+	best.dumpValues();
+	System.exit(0);
     }
     
     @Override
     protected GameBot createNewGameBot() {
-        return evolve();
+	//evolve();
+        return new ThunderBot();
 	
     }
 }

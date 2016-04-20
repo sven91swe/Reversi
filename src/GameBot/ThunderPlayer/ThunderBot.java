@@ -8,18 +8,28 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ThunderBot extends GameBot {
+    private static int i = 0;
     public ThunderBot(){
         super();
         this.setCreator("Thundermoose");
         this.setName("ThunderBot");
-        this.setVersion(1);
+        this.setVersion(i);
 	maxIter = 10;
 	level = 0;
-	impMinLsize = 1;
-	impMaxMinStrengthEnem = 1;
-	impMyPotScore = 1;
-	impEnemPotScore = 1;
-	impRand = 0.1;
+	if (i%2==0){
+	    impMinLsize = 1.0677968842632979;
+	    impMaxMinStrengthEnem = 0.9631497758418451;
+	    impMyPotScore = 0.756886208358836;
+	    impEnemPotScore = 0.9731610639163195;
+	    impRand = 0.9731610639163195;
+	}else{
+	    impMinLsize = 0.9594652229462161;
+	    impMaxMinStrengthEnem = 0.866446369369751;
+	    impMyPotScore = 0.6232029828964971;
+	    impEnemPotScore = 0.8813761725790435;
+	    impRand = 1.002391562502265;
+	}
+	i++;
 	rand = new Random();
     }
     // Copy Constructor
@@ -53,9 +63,17 @@ public class ThunderBot extends GameBot {
     private double impEnemPotScore;
     private double impRand;
     private Random rand;
+    public void dumpValues(){
+	System.out.println("impMinLsize = "+impMinLsize);
+	System.out.println("impMaxMinStrengthEnem = "+impMaxMinStrengthEnem);
+	System.out.println("impMyPotScore = "+impMyPotScore);
+	System.out.println("impEnemPotScore = "+impEnemPotScore);
+	System.out.println("impRand = "+impRand);
+    }
     
     private double evaluateMove(ReversiBoard board,Move move,int color) {
-	board.doMove(move,color);
+	if (move != null)
+	    board.doMove(move,color);
 	int colorenm = color%2+1;
 	ArrayList<Move> list = board.allPotentialMoves(colorenm);
 	
@@ -92,7 +110,7 @@ public class ThunderBot extends GameBot {
         Move move = null;
         if(list.size() != 0) {
 	    double[] strength = new double[list.size()];
-	    double minStrength=100;
+	    double minStrength=Double.POSITIVE_INFINITY;
 	    int minStrengthAt = -1;
             for (int i = 0; i<list.size(); i++){
 		strength[i] = evaluateMove(reversiBoard.copy(),list.get(i),color);
@@ -100,6 +118,9 @@ public class ThunderBot extends GameBot {
 		    minStrength = strength[i];
 		    minStrengthAt = i;
 		}
+	    }
+	    if (minStrengthAt == -1){
+		minStrengthAt = rand.nextInt(list.size());
 	    }
 	    move = list.get(minStrengthAt);
         }else{
