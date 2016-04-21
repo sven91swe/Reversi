@@ -12,21 +12,18 @@ import java.util.concurrent.Callable;
  */
 public class InterruptibleTask implements Callable<Move> {
     private GameBot bot;
-    private ReversiBoard board;
     private int color;
-    private List<Move> allMoves;
+    private GameState gameState;
 
-    public InterruptibleTask(GameBot bot, ReversiBoard board, int color, List<Move> allPreviousMoves){
+    public InterruptibleTask(GameBot bot, GameState gameState, int color){
         this.bot = bot;
-        this.board = board;
+        this.gameState = gameState;
         this.color = color;
-        this.allMoves = allPreviousMoves;
-
     }
 
     @Override
     public Move call() throws Exception {
-        this.bot.calculateNextMove(this.board, this.color, this.allMoves);
+        this.bot.calculateNextMove(this.gameState, this.color);
         return this.bot.getMove();
     }
 }

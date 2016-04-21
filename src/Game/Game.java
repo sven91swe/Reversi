@@ -70,7 +70,7 @@ public final class Game extends Observable{
 
             //Get the next move from the bot. Check time. currentMove = null if it took too long.
             //Make sure that the bots only recieves copies of the board and arrayList.
-            currentMove = this.getNextMoveWithinTime(bots[botNumber], board.copy(), color, this.gameState.getListOfMoves());
+            currentMove = this.getNextMoveWithinTime(bots[botNumber], color, this.gameState.copy());
 
             //Check time constraint..
             if (currentMove == null) {
@@ -149,15 +149,21 @@ public final class Game extends Observable{
 
     /**
      * TODO
-     * @param bot
-     * @param board
-     * @param color
      * @return Move from the bot. If it ran out of time, returns null.
      */
-    private Move getNextMoveWithinTime(GameBot bot, ReversiBoard board, int color, List<Move> allPreviousMoves){
+
+    /**
+     *
+     * @param bot
+     * @param color
+     * @param gameState
+     * *
+     * @return Move from the bot. If it ran out of time, returns null.
+     */
+    private Move getNextMoveWithinTime(GameBot bot, int color, GameState gameState){
         MoveTimer moveTimer = new MoveTimer(bot);
         Future<Move> future =
-                this.executorService.submit(new InterruptibleTask(bot, board, color, allPreviousMoves));
+                this.executorService.submit(new InterruptibleTask(bot, gameState, color));
 
         ScheduledFuture scheduledFuture =
                 this.scheduledExecutorService.schedule(moveTimer, 10, TimeUnit.SECONDS);

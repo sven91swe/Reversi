@@ -21,7 +21,7 @@ public class GameState {
         this(b, new ArrayList<Move>());
     }
 
-    private GameState(ReversiBoard b, List<Move> l){
+    public GameState(ReversiBoard b, List<Move> l){
         this.board = b;
         this.listOfMoves = new ArrayList<Move>();
     }

@@ -2,6 +2,7 @@ package GameBot;
 
 import Board.Move;
 import Board.ReversiBoard;
+import Game.GameState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,10 @@ abstract public class GameBot {
      */
     public abstract void calculateNextMove(ReversiBoard board, int color, List<Move> allPreviousMoves);
 
+
+    public void calculateNextMove(GameState g, int color){
+        this.calculateNextMove(g.getBoard(), color, g.getListOfMoves());
+    }
     /**
      *
      * @param move An object of the type Move, represeting a valid move.
