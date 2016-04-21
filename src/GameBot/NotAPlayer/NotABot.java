@@ -5,6 +5,7 @@ import GameBot.GameBot;
 import Board.Move;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Joel Magnusson on 2016-04-03.
@@ -18,7 +19,7 @@ public class NotABot extends GameBot {
 
     }
     @Override
-    public void calculateNextMove(ReversiBoard reversiBoard, int color, ArrayList<Move> allPreviousMoves) {
+    public void calculateNextMove(ReversiBoard reversiBoard, int color, List<Move> allPreviousMoves) {
         this.isRunning = true;
 
         ArrayList<Move> list = reversiBoard.allPotentialMoves(color);

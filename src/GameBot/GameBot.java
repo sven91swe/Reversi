@@ -4,6 +4,7 @@ import Board.Move;
 import Board.ReversiBoard;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Sven Eriksson on 2016-03-25.
@@ -27,7 +28,7 @@ abstract public class GameBot {
      * @param color The color of this bot, 1 or 2.
      * @param allPreviousMoves A list of all moves played so far, with the latest move as the last element.
      */
-    public abstract void calculateNextMove(ReversiBoard board, int color, ArrayList<Move> allPreviousMoves);
+    public abstract void calculateNextMove(ReversiBoard board, int color, List<Move> allPreviousMoves);
 
 
     //public abstract void calculateNextMove(ReversiBoard board, int color);

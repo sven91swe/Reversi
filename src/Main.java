@@ -87,11 +87,16 @@ public class Main {
     public static void test5(){
         GameBot B1 = new ThunderBotCreator().getNewGameBot();
         GameBot B2 = new NotABotCreator().getNewGameBot();
-	ReversiBoard rb = new ReversiBoard();
-	ReversiMainView view = new ReversiMainView(rb);
-	view.setVisible(true);
+
+        Game game = new Game();
+
+        ReversiMainView view = new ReversiMainView();
+        view.setVisible(true);
+
+        game.addObserver(view);
+
         GameLogger logger = new GameLogger(B1, B2, 1);
-	GameBot winner = Game.playGame(B1, B2, logger, true,rb);
+	    GameBot winner = game.playGame(B1, B2, logger, true);
         System.out.print(winner);
     }
 }

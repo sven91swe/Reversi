@@ -4,7 +4,7 @@ import Board.ReversiBoard;
 import Board.Move;
 import GameBot.GameBot;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
@@ -14,9 +14,9 @@ public class InterruptibleTask implements Callable<Move> {
     private GameBot bot;
     private ReversiBoard board;
     private int color;
-    private ArrayList<Move> allMoves;
+    private List<Move> allMoves;
 
-    public InterruptibleTask(GameBot bot, ReversiBoard board, int color, ArrayList<Move> allPreviousMoves){
+    public InterruptibleTask(GameBot bot, ReversiBoard board, int color, List<Move> allPreviousMoves){
         this.bot = bot;
         this.board = board;
         this.color = color;

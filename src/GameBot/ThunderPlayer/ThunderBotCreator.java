@@ -16,7 +16,7 @@ public class ThunderBotCreator extends GameBotCreator {
     private int numOfGenerations = 10;
     private ThunderBot compete(ThunderBot b1,ThunderBot b2){
 	GameLogger logger = new GameLogger((GameBot)b1,(GameBot)b2,1);
-        GameBot winner = Game.playGame((GameBot)b1,(GameBot)b2,logger,false);
+        GameBot winner = new Game().playGame((GameBot)b1,(GameBot)b2,logger,false);
 	if (winner == null){
 	    return b1;
 	}else{

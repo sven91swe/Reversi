@@ -6,18 +6,24 @@ import GameBot.GameBot;
 import Logger.GameLogger;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
 import java.util.concurrent.*;
 
 /**
  * Created by Sven Eriksson on 2016-04-04.
  * Based on code made by Joel Magnusson on 2016-04-03.
  */
-public final class Game {
-    //TODO: Consider making this into an object class due to these two.
-    private static ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(2);
-    private static ExecutorService executorService = Executors.newFixedThreadPool(2);
+public final class Game extends Observable{
+    private ScheduledExecutorService scheduledExecutorService;
+    private ExecutorService executorService;
+    private GameState gameState;
 
-    private Game(){}
+    public Game(){
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(2);
+        this.executorService = Executors.newFixedThreadPool(2);
+        this.gameState = new GameState();
+    }
 
     /**
      * TODO
@@ -26,30 +32,25 @@ public final class Game {
      * @param gameLogger
      * @return
      */
-    public static GameBot playGame(GameBot B0, GameBot B1, GameLogger gameLogger){
-        return Game.playGame(B0, B1, gameLogger, true);
-    }
-
-    public static GameBot playGame(GameBot B0, GameBot B1, GameLogger gameLogger, boolean showText){
-	return playGame(B0,B1,gameLogger,showText,new ReversiBoard());
+    public GameBot playGame(GameBot B0, GameBot B1, GameLogger gameLogger){
+        return this.playGame(B0, B1, gameLogger, true);
     }
     
     /**
-     * TODO
      * @param B0
      * @param B1
      * @param gameLogger
      * @param showText
-     * @param board
      * @return
      */   
-    public static GameBot playGame(GameBot B0, GameBot B1, GameLogger gameLogger, boolean showText,ReversiBoard board){
+    public GameBot playGame(GameBot B0, GameBot B1, GameLogger gameLogger, boolean showText){
         int currentTurn = 0;
         Move currentMove = new Move(false);
         Move lastMove = new Move(false);
-        //ReversiBoard board = new ReversiBoard();
+        ReversiBoard board = new ReversiBoard();
         GameBot[] bots = {B0, B1};
-        ArrayList<Move> allPreviousMoves = new ArrayList<Move>();
+        this.gameState = new GameState(board);
+
 
         int color = 0; //First update of color will set this to 1.
         int botNumber;
@@ -69,7 +70,7 @@ public final class Game {
 
             //Get the next move from the bot. Check time. currentMove = null if it took too long.
             //Make sure that the bots only recieves copies of the board and arrayList.
-            currentMove = Game.getNextMoveWithinTime(bots[botNumber], board.copy(), color, new ArrayList<Move>(allPreviousMoves));
+            currentMove = this.getNextMoveWithinTime(bots[botNumber], board.copy(), color, this.gameState.getListOfMoves());
 
             //Check time constraint..
             if (currentMove == null) {
@@ -78,7 +79,7 @@ public final class Game {
                 if (bots[botNumber] == B0) {
                     gameLogger.setWinner(B1, scoreBot1, scoreBot0, "Opponent ran out of time.");
                     return B1;
-                } else {
+                }else {
                     gameLogger.setWinner(B0, scoreBot0, scoreBot1, "Opponent ran out of time.");
                     return B0;
                 }
@@ -86,7 +87,7 @@ public final class Game {
 
             //Log move.
             gameLogger.newMove(bots[botNumber], currentMove, color);
-            allPreviousMoves.add(currentMove);
+            this.gameState.addMove(currentMove);
 
             //Check if move is valid.
             if (!board.isValidMove(currentMove, color)) {
@@ -121,6 +122,9 @@ public final class Game {
                 System.out.print(currentMove + " \n");
                 board.printBoard();
 
+                this.setChanged();
+                this.notifyObservers();
+
             }
         }
 
@@ -149,13 +153,13 @@ public final class Game {
      * @param color
      * @return Move from the bot. If it ran out of time, returns null.
      */
-    private static Move getNextMoveWithinTime(GameBot bot, ReversiBoard board, int color, ArrayList<Move> allPreviousMoves){
+    private Move getNextMoveWithinTime(GameBot bot, ReversiBoard board, int color, List<Move> allPreviousMoves){
         MoveTimer moveTimer = new MoveTimer(bot);
         Future<Move> future =
-                Game.executorService.submit(new InterruptibleTask(bot, board, color, allPreviousMoves));
+                this.executorService.submit(new InterruptibleTask(bot, board, color, allPreviousMoves));
 
         ScheduledFuture scheduledFuture =
-                Game.scheduledExecutorService.schedule(moveTimer, 10, TimeUnit.SECONDS);
+                this.scheduledExecutorService.schedule(moveTimer, 10, TimeUnit.SECONDS);
 
         Move nextMove = null;
 
@@ -188,5 +192,9 @@ public final class Game {
 
         //Return null if out of time or error..
         return nextMove;
+    }
+
+    public GameState getGameState(){
+        return this.gameState.copy();
     }
 }
