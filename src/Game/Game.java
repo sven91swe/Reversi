@@ -104,6 +104,7 @@ public final class Game extends Observable{
 
             //Do the move on the board. (=updates board)
             board.doMove(currentMove, color);
+            this.gameState.updateBoard(board);
 
             //Check if game has ended.
             bothArePassing = currentMove.isPassing() && lastMove.isPassing();
