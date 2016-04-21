@@ -30,19 +30,24 @@ public final class Game {
         return Game.playGame(B0, B1, gameLogger, true);
     }
 
+    public static GameBot playGame(GameBot B0, GameBot B1, GameLogger gameLogger, boolean showText){
+	return playGame(B0,B1,gameLogger,showText,new ReversiBoard());
+    }
+    
     /**
      * TODO
      * @param B0
      * @param B1
      * @param gameLogger
      * @param showText
+     * @param board
      * @return
-     */
-    public static GameBot playGame(GameBot B0, GameBot B1, GameLogger gameLogger, boolean showText){
+     */   
+    public static GameBot playGame(GameBot B0, GameBot B1, GameLogger gameLogger, boolean showText,ReversiBoard board){
         int currentTurn = 0;
         Move currentMove = new Move(false);
         Move lastMove = new Move(false);
-        ReversiBoard board = new ReversiBoard();
+        //ReversiBoard board = new ReversiBoard();
         GameBot[] bots = {B0, B1};
         ArrayList<Move> allPreviousMoves = new ArrayList<Move>();
 
@@ -176,6 +181,9 @@ public final class Game {
             future.cancel(true);
             nextMove = null;
             System.out.println("ExecutionException!");
+	    System.out.println(e.getMessage());
+	    e.printStackTrace();
+	    System.exit(1);
         }
 
         //Return null if out of time or error..

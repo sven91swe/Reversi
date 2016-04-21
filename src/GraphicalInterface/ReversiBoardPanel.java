@@ -7,18 +7,21 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Dimension;
+import java.awt.Container;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
 /**
- * @author Tor Djärv
+ * @author Thundermoose
  * @version 1
  * 
  */
-public class ReversiBoardPanel extends JPanel implements Action{
+public class ReversiBoardPanel extends JPanel implements ActionListener{
     // All private instance variable here
     private ReversiBoard board;
     private Timer updateTimer;
-    private const int updateTime = 200; // ms
+    private int updateTime = 200; // ms
+    private Color[] colors;
 
     // All constructors here
     public ReversiBoardPanel(ReversiBoard board){
@@ -26,15 +29,38 @@ public class ReversiBoardPanel extends JPanel implements Action{
 	this.board = board;
 	updateTimer = new Timer(updateTime,this);
 	updateTimer.start();
+	colors = new Color[3];
+	colors[0] = Color.GREEN;
+	colors[1] = Color.BLACK;
+	colors[2] = Color.WHITE;
     }
 
     // All private methods here
     private void drawReversiBoard(Graphics g){
-	Graphics2D drawArea = (Graphics2D)g;
+	
+	int[][] boardLayout = board.getBoardInformation();
+	int side = this.getWidth();
+	int xstart=0,ystart=0;
+	if (side>this.getHeight()){
+	    side = this.getHeight();
+	    xstart=(this.getWidth()-side)/2;
+	}else{
+	    ystart=side/16;
+	}
+	side/=8;
+	
 	// The traditional colour of a Reversi board is green
 	// So I stick with that
-	drawArea.setBackground(Color.GREEN);
-	// TODO: add so that the program can draw board
+	g.setColor(Color.GREEN);
+	g.fillRect(xstart,ystart,side*8,side*8);
+	for (int i = 0; i<8; i++){
+	    for (int j = 0; j<8; j++){
+		if (boardLayout[i][j] !=0){
+		    g.setColor(colors[boardLayout[i][j]]);
+		    g.fillOval(xstart+i*side,ystart+j*side,side,side);
+		}
+	    }
+	}
 	
     }
     // All public methdos here

@@ -1,5 +1,6 @@
 package GameBot.ThunderPlayer;
 
+import Board.ReversiBoard;
 import Game.Game;
 import Logger.GameLogger;
 import GameBot.GameBot;
