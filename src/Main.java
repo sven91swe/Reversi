@@ -3,12 +3,15 @@ import Board.ReversiBoard;
 import Game.GameOld;
 import Game.Game;
 import Logger.GameLogger;
+import GraphicalInterface.ReversiMainView;
 import GameBot.GameBot;
 import GameBot.GameBotCreator;
 
 import GameBot.ExamplePlayer.ExampleBotCreator;
 import GameBot.NotAPlayer.NotABotCreator;
-import GameBot.MKBot.MKBotCreator;
+import GameBot.ThunderPlayer.ThunderBotCreator;
+import GameBot.MGPlayer.MGBotCreator;
+//import GameBot.MKBot.MKBotCreator;
 // Remember to add the new bots!
 
 public class Main {
@@ -82,11 +85,13 @@ public class Main {
     }
 
     public static void test5(){
-        GameBot B1 = new ExampleBotCreator().getNewGameBot();
+        GameBot B1 = new ThunderBotCreator().getNewGameBot();
         GameBot B2 = new NotABotCreator().getNewGameBot();
-
+	ReversiBoard rb = new ReversiBoard();
+	ReversiMainView view = new ReversiMainView(rb);
+	view.setVisible(true);
         GameLogger logger = new GameLogger(B1, B2, 1);
-        GameBot winner = Game.playGame(B1, B2, logger, true);
+	GameBot winner = Game.playGame(B1, B2, logger, true,rb);
         System.out.print(winner);
     }
 }
