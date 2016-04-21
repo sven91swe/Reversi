@@ -30,10 +30,6 @@ abstract public class GameBot {
      */
     public abstract void calculateNextMove(ReversiBoard board, int color, List<Move> allPreviousMoves);
 
-
-    //public abstract void calculateNextMove(ReversiBoard board, int color);
-
-
     /**
      *
      * @param move An object of the type Move, represeting a valid move.

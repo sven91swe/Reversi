@@ -1,16 +1,13 @@
 import Board.Move;
 import Board.ReversiBoard;
-import Game.GameOld;
 import Game.Game;
 import Logger.GameLogger;
 import GraphicalInterface.ReversiMainView;
 import GameBot.GameBot;
-import GameBot.GameBotCreator;
 
 import GameBot.ExamplePlayer.ExampleBotCreator;
 import GameBot.NotAPlayer.NotABotCreator;
 import GameBot.ThunderPlayer.ThunderBotCreator;
-import GameBot.MGPlayer.MGBotCreator;
 //import GameBot.MKBot.MKBotCreator;
 // Remember to add the new bots!
 
@@ -75,14 +72,6 @@ public class Main {
         }
     }
 
-    public static void test4(){
-        GameBot[] bots = new GameBot[2];
-        bots[0] = new NotABotCreator().getNewGameBot();
-        bots[1] = new ExampleBotCreator().getNewGameBot();
-
-        GameOld testGameOld = new GameOld(bots[0],bots[1]);
-        testGameOld.run();
-    }
 
     public static void test5(){
         GameBot B1 = new ThunderBotCreator().getNewGameBot();
